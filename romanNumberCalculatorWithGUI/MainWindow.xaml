@@ -23,6 +23,8 @@
         <Button x:Name="buttonSolution" Content="=" HorizontalAlignment="Left" Margin="230,195,0,0" VerticalAlignment="Top" Width="75" Click="buttonSolution_Click"/>
         <Button x:Name="buttonDeleteOne" Content="&lt;-" HorizontalAlignment="Left" Margin="30,235,0,0" VerticalAlignment="Top" Width="75" Click="buttonDeleteOne_Click"/>
         <Button x:Name="buttonDeleteAll" Content="Del" HorizontalAlignment="Left" Margin="130,235,0,0" VerticalAlignment="Top" Width="75" Click="buttonDeleteAll_Click"/>
+        <Label x:Name="label" Content="Решение" HorizontalAlignment="Left" Margin="30,10,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label1" Content="Результат" HorizontalAlignment="Left" Margin="320,10,0,0" VerticalAlignment="Top"/>
 
 
     </Grid>

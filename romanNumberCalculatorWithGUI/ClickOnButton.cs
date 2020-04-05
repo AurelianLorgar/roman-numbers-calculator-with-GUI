@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
 using System.Text;
-using System.Threading.Tasks;
 
 namespace romanNumberCalculatorWithGUI {
     class ClickOnButton {
 
         MainWindow mainWindow = new MainWindow();
 
-        static StringBuilder numbers = new StringBuilder("");
+        public static StringBuilder numbers = new StringBuilder("");
 
         public static void addToMath(string number) {
             numbers.Append(number);
-            //TODO: удалить
-            System.Diagnostics.Debug.WriteLine(numbers.ToString());
         }
 
         public static bool deleteFromMath(string sign) {
@@ -23,11 +20,9 @@ namespace romanNumberCalculatorWithGUI {
             if (numbers.Length != 0) {
                 if (sign.Equals("<-")) {
                     numbers.Remove(numbers.Length - 1, 1);
-                    System.Diagnostics.Debug.WriteLine(numbers.ToString());
                     return result = true;
                 } else if (sign.Equals("Del")) {
                     numbers.Clear();
-                    System.Diagnostics.Debug.WriteLine(numbers.ToString());
                     return result = true;
                 }
             }
