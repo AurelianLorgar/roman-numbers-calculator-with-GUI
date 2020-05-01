@@ -3,50 +3,42 @@
 
 using System;
 using System.Data;
-using System.Text;
 using System.Windows;
+using RomanCalculator;
 
 namespace romanNumberCalculatorWithGUI {
     class MathOperations {
 
-        public static string getSolution(string numbers) {
+        Check check = new Check();
+        RomanToArabic romanToArabic = new RomanToArabic();
+        ArabicToRoman arabicToRoman = new ArabicToRoman();
+
+        public string GetSolution(string numbers) {
 
             bool check = false;
 
-            char[] mathSignsChar = { '+', '-', '*', '/' };
             string[] mathSignsString = { "+", "-", "*", "/" };
             string[] numbersRomanArray = { "" };
 
-            string numbersTemp = null;
+            string numbersTemp = "";
             string solutionString;
 
             int solutionInt = 0;
 
             char delimiter = '@';
 
-            if (Check.checkDoubleSigns(numbers).Equals(true) || Check.checkTransfer(numbers).Equals(true)) {
+            if (Check.CheckDoubleSigns(numbers).Equals(true) || Check.CheckTransfer(numbers.ToCharArray()).Equals(true)) {
                 MessageBox.Show("Проверьте введённый пример на правильность записи", "Внимание!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return solutionString = "";
             }
 
+           for (int i = 0; i < mathSignsString.Length; i++) {
+                numbers = numbers.Replace(mathSignsString[i], delimiter + mathSignsString[i] + delimiter);
+            }
+
             for (int i = 0; i < numbers.Length; i++) {
-                StringBuilder numbersSB = new StringBuilder(numbers);
-                for (int j = 0; j < mathSignsChar.Length; j++) {
-                    if (numbersSB[i].Equals(mathSignsChar[j])) {
-                        string sign = numbersSB[i].ToString();
-                        numbersTemp = numbersSB.Replace(sign, delimiter + sign + delimiter).ToString();
-                        break;
-                    }
-                }
-            }
-
-            if (numbersTemp == null) {
-                numbersTemp = numbers;
-            }
-
-            for (int i = 0; i < numbersTemp.Length; i++) {
-                if (numbersTemp[i].Equals(delimiter)) {
-                    numbersRomanArray = numbersTemp.Split(delimiter);
+                if (numbers[i].Equals(delimiter)) {
+                    numbersRomanArray = numbers.Split(delimiter);
                     check = true;
                     break;
                 }
@@ -68,11 +60,17 @@ namespace romanNumberCalculatorWithGUI {
                     }
                 }
                 if (check) {
-                    numbersArabicArray[i] = (RomanToArabic.transfer(numbersRomanArray[i].ToCharArray())).ToString();
+                    numbersArabicArray[i] = (romanToArabic.Transfer(numbersRomanArray[i].ToCharArray())).ToString();
                 } 
             }
 
             numbers = string.Join(null, numbersArabicArray);
+
+            if (Check.CheckDoubleSigns(numbers).Equals(true)) {
+                MessageBox.Show("Проверьте введённый пример на правильность записи", "Внимание!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return solutionString = "";
+            }
+
             try {
                 var solution = new DataTable().Compute(numbers, null);
                 double solutionDouble = Convert.ToDouble(solution.ToString());
@@ -82,7 +80,7 @@ namespace romanNumberCalculatorWithGUI {
                 return solutionString = "";
             }
             
-            solutionString = ArabicToRoman.transfer(solutionInt); //-V3008
+            solutionString = arabicToRoman.Transfer(solutionInt);
 
             return solutionString;
         }

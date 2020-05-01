@@ -1,6 +1,7 @@
 ﻿// This is a personal academic project. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System.Text;
 using System.Windows;
 
 namespace romanNumberCalculatorWithGUI {
@@ -8,94 +9,104 @@ namespace romanNumberCalculatorWithGUI {
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window {
+
+        MathOperations mathOperations = new MathOperations();
+        StringBuilder number = new StringBuilder("");
+        string numbers;
+
         public MainWindow() {
             InitializeComponent();
         }
 
         private void buttonI_Click(object sender, RoutedEventArgs e) {
             textBoxMath.AppendText("I");
-            ClickOnButton.addToMath("I");
+            number.Append("I");
         }
 
         private void buttonV_Click(object sender, RoutedEventArgs e) {
             textBoxMath.AppendText("V");
-            ClickOnButton.addToMath("V");
+            number.Append("V");
         }
 
         private void buttonX_Click(object sender, RoutedEventArgs e) {
             textBoxMath.AppendText("X");
-            ClickOnButton.addToMath("X");
+            number.Append("X");
         }
 
         private void buttonL_Click(object sender, RoutedEventArgs e) {
             textBoxMath.AppendText("L");
-            ClickOnButton.addToMath("L");
+            number.Append("L");
         }
 
         private void buttonC_Click(object sender, RoutedEventArgs e) {
             textBoxMath.AppendText("C");
-            ClickOnButton.addToMath("C");
+            number.Append("C");
         }
 
         private void buttonD_Click(object sender, RoutedEventArgs e) {
             textBoxMath.AppendText("D");
-            ClickOnButton.addToMath("D");
+            number.Append("D");
         }
 
         private void buttonM_Click(object sender, RoutedEventArgs e) {
             textBoxMath.AppendText("M");
-            ClickOnButton.addToMath("M");
+            number.Append("M");
         }
 
         private void buttonPlus_Click(object sender, RoutedEventArgs e) {
             textBoxMath.AppendText("+");
-            ClickOnButton.addToMath("+");
+            number.Append("+");
         }
 
         private void buttonMinus_Click(object sender, RoutedEventArgs e) {
             textBoxMath.AppendText("-");
-            ClickOnButton.addToMath("-");
+            number.Append("-");
         }
 
         private void buttonMultiply_Click(object sender, RoutedEventArgs e) {
             textBoxMath.AppendText("*");
-            ClickOnButton.addToMath("*");
+            number.Append("*");
         }
 
         private void buttonDivide_Click(object sender, RoutedEventArgs e) {
             textBoxMath.AppendText("/");
-            ClickOnButton.addToMath("/");
+            number.Append("/");
         }
 
         private void buttonSolution_Click(object sender, RoutedEventArgs e) {
 
-            ClickOnButton clickOnButton = new ClickOnButton();
-            string numbers = ClickOnButton.numbers.ToString().ToUpper();
+            textBoxSolution.Clear();
+            numbers = number.ToString().ToUpper();
             string numbersTextBox = textBoxMath.Text.ToUpper();
 
             if (!numbersTextBox.Equals(numbers)) {
                 numbers = numbersTextBox;
             }
 
-            textBoxSolution.AppendText(MathOperations.getSolution(numbers));
+            textBoxSolution.AppendText(mathOperations.GetSolution(numbers));
         }
 
         private void buttonDeleteOne_Click(object sender, RoutedEventArgs e) {
-            if (ClickOnButton.deleteFromMath("<-").Equals(true)) {
-                if (textBoxMath.Text.Length > 0) {
-                    textBoxMath.Text = textBoxMath.Text.Substring(0, (textBoxMath.Text.Length - 1));
+
+            if (number.Length > 0) {
+                number.Remove(number.Length - 1, 1);
+                textBoxMath.Clear();
+                textBoxMath.AppendText(number.ToString());
+
+                if (numbers != null) {
+                    numbers = numbers.Remove(numbers.Length - 1, 1);
                 }
+
             }
         }
 
         private void buttonDeleteAll_Click(object sender, RoutedEventArgs e) {
-            if (ClickOnButton.deleteFromMath("Del").Equals(true)) {
-                if (textBoxMath.Text.Length > 0) {
-                    textBoxMath.Text = textBoxMath.Text.Remove(0, textBoxMath.Text.Length);
-                }
-                if (textBoxSolution.Text.Length > 0) {
-                    textBoxSolution.Text = textBoxSolution.Text.Remove(0, textBoxSolution.Text.Length);
-                }
+
+            if (number.Length > 0) {
+                number.Clear();
+                numbers = "";
+                textBoxMath.Text = textBoxMath.Text.Remove(0, textBoxMath.Text.Length);
+                textBoxSolution.Text = textBoxSolution.Text.Remove(0, textBoxSolution.Text.Length);
             }
         }
     }

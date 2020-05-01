@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:romanNumberCalculatorWithGUI"
         mc:Ignorable="d"
-        Title="Калькулятор римских чисел" Height="350" Width="570">
+        Title="Калькулятор римских чисел" Height="350" Width="570" ResizeMode="NoResize">
     <Grid>
         <Button x:Name="buttonI" Content="I" HorizontalAlignment="Left" Margin="30,110,0,0" VerticalAlignment="Top" Width="75" Click="buttonI_Click"/>
         <Button x:Name="buttonV" Content="V" HorizontalAlignment="Left" Margin="130,110,0,0" VerticalAlignment="Top" Width="75" Click="buttonV_Click"/>
