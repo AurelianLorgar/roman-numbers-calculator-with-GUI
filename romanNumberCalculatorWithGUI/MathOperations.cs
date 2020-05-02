@@ -15,12 +15,9 @@ namespace romanNumberCalculatorWithGUI {
 
         public string GetSolution(string numbers) {
 
-            bool check = false;
-
             string[] mathSignsString = { "+", "-", "*", "/" };
             string[] numbersRomanArray = { "" };
 
-            string numbersTemp = "";
             string solutionString;
 
             int solutionInt = 0;
@@ -32,26 +29,21 @@ namespace romanNumberCalculatorWithGUI {
                 return solutionString = "";
             }
 
-           for (int i = 0; i < mathSignsString.Length; i++) {
+            for (int i = 0; i < mathSignsString.Length; i++) {
                 numbers = numbers.Replace(mathSignsString[i], delimiter + mathSignsString[i] + delimiter);
             }
 
             for (int i = 0; i < numbers.Length; i++) {
                 if (numbers[i].Equals(delimiter)) {
                     numbersRomanArray = numbers.Split(delimiter);
-                    check = true;
                     break;
                 }
-            }
-
-            if (check == false) {
-                numbersRomanArray[0] = numbersTemp;
             }
 
             string[] numbersArabicArray = new string[numbersRomanArray.Length];
 
             for (int i = 0; i < numbersRomanArray.Length; i++) {
-                check = true;
+                bool check = true;
                 for (int j = 0; j < mathSignsString.Length; j++) {
                     if (numbersRomanArray[i].Equals(mathSignsString[j])) {
                         numbersArabicArray[i] = numbersRomanArray[i];
@@ -61,7 +53,7 @@ namespace romanNumberCalculatorWithGUI {
                 }
                 if (check) {
                     numbersArabicArray[i] = (romanToArabic.Transfer(numbersRomanArray[i].ToCharArray())).ToString();
-                } 
+                }     
             }
 
             numbers = string.Join(null, numbersArabicArray);
@@ -75,11 +67,12 @@ namespace romanNumberCalculatorWithGUI {
                 var solution = new DataTable().Compute(numbers, null);
                 double solutionDouble = Convert.ToDouble(solution.ToString());
                 solutionInt = Convert.ToInt32(Math.Round(solutionDouble, 0));
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 MessageBox.Show(e.Message, "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
                 return solutionString = "";
             }
-            
+
             solutionString = arabicToRoman.Transfer(solutionInt);
 
             return solutionString;
